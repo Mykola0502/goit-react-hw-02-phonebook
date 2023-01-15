@@ -4,6 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import { ContactForm } from 'components/ContactForm';
 import { ContactList } from 'components/ContactList';
+import { Filter } from 'components/Filter';
 
 import { Container } from './App.styled';
 
@@ -18,7 +19,7 @@ export class App extends Component {
     filter: '',
   };
 
-  addContactHandler = data => {
+  addContact = data => {
     const { contacts } = this.state;
     const newContact = {
       id: nanoid(3),
@@ -30,7 +31,7 @@ export class App extends Component {
       ({ name }) => dataNameNormalized === name.toLowerCase()
     );
     const notifyError = () =>
-      toast.error(`"${newContact.name}" is already in the Phonebook!`);
+      toast.error(`"${newContact.name}" is already in contacts`);
     const notifySucces = () =>
       toast.success(`"${newContact.name}" successfully added!`);
 
@@ -52,25 +53,57 @@ export class App extends Component {
     }));
   };
 
+  changeFilter = evt => {
+    // console.log(evt.currentTarget.value);
+    this.setState({ filter: evt.currentTarget.value });
+  };
+
+  getVisibleContact = () => {
+    const { contacts, filter } = this.state;
+
+    const filterNormalized = filter.toLowerCase().trim();
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filterNormalized)
+    );
+  };
+
   render() {
     // console.log(this.state.contacts);
+    // console.log(this.state.filter);
     // const { contacts } = this.state;
+
+    const { filter } = this.state;
+
+    const visibleContacts = this.getVisibleContact();
 
     return (
       <Container>
         <Toaster position="top-center" reverseOrder={false} />
-        <section>
-          <h1>Phonebook</h1>
-          <ContactForm onSubmit={this.addContactHandler} />
-        </section>
-        <section>
-          <h2>Contacts</h2>
-          <ContactList
-            contacts={this.state.contacts}
-            deleteContact={this.deleteContact}
-          />
-        </section>
+        <h1>Phonebook</h1>
+        <ContactForm onSubmit={this.addContact} />
+        <h2>Contacts</h2>
+        {visibleContacts.length || filter ? (
+          visibleContacts.length ? (
+            <>
+              <Filter value={filter} onChange={this.changeFilter} />
+              <ContactList
+                contacts={visibleContacts}
+                onDeleteContact={this.deleteContact}
+              />
+            </>
+          ) : (
+            <>
+              <Filter value={filter} onChange={this.changeFilter} />
+              <p>No matches found for "{filter}"</p>
+            </>
+          )
+        ) : (
+          <p>There are no phone numbers in Contacts</p>
+        )}
       </Container>
     );
   }
 }
+
+/* <p>There are no phone numbers in Contacts</p>; */

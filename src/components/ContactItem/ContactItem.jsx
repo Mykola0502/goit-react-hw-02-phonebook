@@ -6,7 +6,7 @@ export const ContactItem = ({ id, name, number, deleteContact }) => {
       <span>{name}: </span>
       <span>{number}</span>
       <button type="button" onClick={() => deleteContact(id)}>
-        Remove
+        Delete
       </button>
     </li>
   );
