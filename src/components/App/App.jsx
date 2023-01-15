@@ -6,7 +6,13 @@ import { ContactForm } from 'components/ContactForm';
 import { ContactList } from 'components/ContactList';
 import { Filter } from 'components/Filter';
 
-import { Container } from './App.styled';
+import {
+  Container,
+  Title,
+  SubTitle,
+  FilterText,
+  ContactText,
+} from './App.styled';
 
 export class App extends Component {
   state = {
@@ -80,9 +86,9 @@ export class App extends Component {
     return (
       <Container>
         <Toaster position="top-center" reverseOrder={false} />
-        <h1>Phonebook</h1>
+        <Title>Phonebook</Title>
         <ContactForm onSubmit={this.addContact} />
-        <h2>Contacts</h2>
+        <SubTitle>Contacts</SubTitle>
         {visibleContacts.length || filter ? (
           visibleContacts.length ? (
             <>
@@ -95,11 +101,11 @@ export class App extends Component {
           ) : (
             <>
               <Filter value={filter} onChange={this.changeFilter} />
-              <p>No matches found for "{filter}"</p>
+              <FilterText>No matches found for "{filter}"!</FilterText>
             </>
           )
         ) : (
-          <p>There are no phone numbers in Contacts</p>
+          <ContactText>There are no phone numbers in Contacts!</ContactText>
         )}
       </Container>
     );

@@ -5,15 +5,17 @@ import { ContactItem } from 'components/ContactItem';
 export const ContactList = ({ contacts, onDeleteContact }) => {
   return (
     <ul>
-      {contacts.map(({ id, name, number }) => (
-        <ContactItem
-          key={id}
-          id={id}
-          name={name}
-          number={number}
-          deleteContact={onDeleteContact}
-        />
-      ))}
+      {contacts
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(({ id, name, number }) => (
+          <ContactItem
+            key={id}
+            id={id}
+            name={name}
+            number={number}
+            deleteContact={onDeleteContact}
+          />
+        ))}
     </ul>
   );
 };
