@@ -48,6 +48,7 @@ export const AddBtn = styled.button`
   font-weight: 500;
   /* text-transform: capitalize; */
   cursor: pointer;
+  transition: background-color 250ms ease, box-shadow 250ms ease;
 
   :hover,
   :focus {
