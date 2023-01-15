@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 export const Item = styled.li`
+  padding: 5px;
   display: flex;
   align-items: center;
+  border: 1px solid #9ba2a8;
   font-size: 18px;
   font-weight: 500;
 
   :not(:last-child) {
-    margin-bottom: 10px;
+    border-bottom: none;
   }
 `;
 
