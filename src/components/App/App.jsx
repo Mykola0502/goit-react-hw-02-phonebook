@@ -42,11 +42,9 @@ export class App extends Component {
       toast.success(`"${newContact.name}" successfully added!`);
 
     if (anyName) {
-      // console.log('Такий контакт вже є в контактах');
       notifyError();
       return;
     }
-    // console.log('Додаю в контакти');
     notifySucces();
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
@@ -60,7 +58,6 @@ export class App extends Component {
   };
 
   changeFilter = evt => {
-    // console.log(evt.currentTarget.value);
     this.setState({ filter: evt.currentTarget.value });
   };
 
@@ -75,10 +72,6 @@ export class App extends Component {
   };
 
   render() {
-    // console.log(this.state.contacts);
-    // console.log(this.state.filter);
-    // const { contacts } = this.state;
-
     const { filter } = this.state;
 
     const visibleContacts = this.getVisibleContact();
@@ -111,5 +104,3 @@ export class App extends Component {
     );
   }
 }
-
-/* <p>There are no phone numbers in Contacts</p>; */

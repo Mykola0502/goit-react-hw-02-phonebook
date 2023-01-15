@@ -46,7 +46,6 @@ export const AddBtn = styled.button`
   border: 2px solid #9ba2a8;
   border-radius: 5px;
   font-weight: 500;
-  /* text-transform: capitalize; */
   cursor: pointer;
   transition: background-color 250ms ease, box-shadow 250ms ease;
 
