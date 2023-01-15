@@ -21,7 +21,7 @@ export class App extends Component {
   addContactHandler = data => {
     const { contacts } = this.state;
     const newContact = {
-      id: nanoid(4),
+      id: nanoid(3),
       name: data.name,
       number: data.number,
     };
@@ -30,7 +30,7 @@ export class App extends Component {
       ({ name }) => dataNameNormalized === name.toLowerCase()
     );
     const notifyError = () =>
-      toast.error(`"${newContact.name}" is already in the phone book!`);
+      toast.error(`"${newContact.name}" is already in the Phonebook!`);
     const notifySucces = () =>
       toast.success(`"${newContact.name}" successfully added!`);
 
@@ -44,20 +44,16 @@ export class App extends Component {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
     }));
+  };
 
-    // console.log(data.name === contacts.name);
-    // if (data.name === contacts.name) {
-    //   return;
-    // }
-
-    // this.setState(prevState => ({
-    //   contacts: [...prevState.contacts, { ...data, id: nanoid(4) }],
-    // }));
-    // console.log(data);
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
   };
 
   render() {
-    console.log(this.state.contacts);
+    // console.log(this.state.contacts);
     // const { contacts } = this.state;
 
     return (
@@ -69,7 +65,10 @@ export class App extends Component {
         </section>
         <section>
           <h2>Contacts</h2>
-          <ContactList contacts={this.state.contacts} />
+          <ContactList
+            contacts={this.state.contacts}
+            deleteContact={this.deleteContact}
+          />
         </section>
       </Container>
     );
